@@ -1,7 +1,1 @@
-export default function Home() {
-  return (
-    <>
-      <h1>Hwllo</h1>
-    </>
-  )
-}
+export { default } from "../pages/home";
