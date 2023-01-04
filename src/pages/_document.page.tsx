@@ -1,9 +1,9 @@
-import { getCssText } from '@ignite-ui/react'
-import { Html, Head, Main, NextScript } from 'next/document'
+import { getCssText } from "@ignite-ui/react";
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -26,5 +26,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }
