@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ArrowRight } from "phosphor-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Heading, MultiStep, Text, TextInput } from "@ignite-ui/react";
+import { api } from "../../lib/axios";
 
 import { Container, Form, FormError, Header } from "./styles";
 
@@ -41,8 +42,15 @@ export default function Register() {
     }
   }, [router.query.username, setValue]);
 
-  async function handleRegister(data: RegisterFormData) {
-    console.log(data);
+  async function handleRegister({ name, username }: RegisterFormData) {
+    try {
+      await api.post("/users", {
+        name,
+        username,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
