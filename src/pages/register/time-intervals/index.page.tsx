@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { useRouter } from "next/router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
@@ -12,8 +13,9 @@ import { ArrowRight } from "phosphor-react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { convertTimeStringToMinutes } from "../../../utils/convert-time-string-to-minutes";
 import { getWeekDays } from "../../../utils/get-week-days";
-import { Container, Header } from "../styles";
+import { api } from "../../../lib/axios";
 
+import { Container, Header } from "../styles";
 import {
   FormError,
   IntervalBox,
@@ -63,6 +65,7 @@ type TimeIntervalsFormInput = z.input<typeof timeIntervalsFormSchema>;
 type TimeIntervalsFormOutput = z.output<typeof timeIntervalsFormSchema>;
 
 export default function TimeIntervals() {
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -92,7 +95,11 @@ export default function TimeIntervals() {
   const weekDay = getWeekDays();
 
   async function handleSetTimeIntervals(data: any) {
-    const formData = data as TimeIntervalsFormOutput;
+    const { intervals } = data as TimeIntervalsFormOutput;
+
+    api.post("/users/time-intervals", { intervals });
+
+    router.push("/register/update-profile");
   }
 
   const intervals = watch("intervals");
