@@ -32,7 +32,7 @@ export default async function handler(
 
   const { intervals } = timeIntervalsFormSchema.parse(req.body);
 
-  await Promise.all([
+  await Promise.all(
     intervals.map((interval) => {
       return prisma.userTimeInterval.create({
         data: {
@@ -42,8 +42,8 @@ export default async function handler(
           user_id: session.user.id,
         },
       });
-    }),
-  ]);
+    })
+  );
 
   return res.status(201).end();
 }
