@@ -94,7 +94,6 @@ export function Calendar({ onDateSelected, selectedDate }: CalendarProps) {
       "date",
       currentDate.daysInMonth()
     );
-
     const lastWeekDay = lastDayInCurrentMonth.get("day");
 
     const nextMonthFillArray = Array.from({
@@ -104,21 +103,21 @@ export function Calendar({ onDateSelected, selectedDate }: CalendarProps) {
     });
 
     const calendarDays = [
-      ...previousMonthFillArray.map((date) => ({
-        date,
-        disabled: true,
-      })),
-      ...daysInMonthArray.map((date) => ({
-        date,
-        disabled:
-          date.endOf("day").isBefore(new Date()) ||
-          blockedDates.blockedWeekDays.includes(date.get("day")) ||
-          blockedDates.blockedDates?.includes(date.get("date")),
-      })),
-      ...nextMonthFillArray.map((date) => ({
-        date,
-        disabled: true,
-      })),
+      ...previousMonthFillArray.map((date) => {
+        return { date, disabled: true };
+      }),
+      ...daysInMonthArray.map((date) => {
+        return {
+          date,
+          disabled:
+            date.endOf("day").isBefore(new Date()) ||
+            blockedDates.blockedWeekDays.includes(date.get("day")) ||
+            blockedDates.blockedDates.includes(date.get("date")),
+        };
+      }),
+      ...nextMonthFillArray.map((date) => {
+        return { date, disabled: true };
+      }),
     ];
 
     const calendarWeeks = calendarDays.reduce<CalendarWeeks>(
